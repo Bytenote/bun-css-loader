@@ -4,16 +4,18 @@ import { compile } from 'sass';
  * Loads the contents of CSS and SCSS files
  * and returns it along with its file type.
  *
- * @param {string} filePath - File path
- * @returns {Promise<{ cssContent: string, type: string }>}
+ * @param filePath	- File path
+ * @returns			- CSS content and file type
  */
-export async function loadFile(filePath) {
+export async function loadFile(
+	filePath: string
+): Promise<{ cssContent: string; type: string }> {
 	const fileRef = Bun.file(filePath);
-	let cssContent = await fileRef.text();
+	let cssContent: string = await fileRef.text();
 	let type = fileRef.type;
 
 	if (filePath.includes('.scss')) {
-		cssContent = compile(fileRef.name)?.css;
+		cssContent = compile(fileRef.name ?? '')?.css ?? '';
 		type = 'text/css;charset=utf-8';
 	}
 
@@ -24,13 +26,13 @@ export async function loadFile(filePath) {
  * Extracts the imports from the CSS content
  * and returns them as an array.
  *
- * @param {string} content - CSS content
- * @returns {string[]}
+ * @param content	- CSS content
+ * @returns			- Array of import paths
  */
-export function getImports(content) {
-	const imports = [];
+export function getImports(content: string): string[] {
+	const imports: string[] = [];
 	const importRegex = /@import\s+(?:url\()?['"]?([^'"\)]+)['"]?\)?;/g;
-	let match;
+	let match: RegExpExecArray | null;
 
 	while ((match = importRegex.exec(content)) !== null) {
 		imports.push(match[1]);
@@ -42,13 +44,15 @@ export function getImports(content) {
 /**
  * Removes all imports from the CSS content.
  *
- * @param {string[]} imports	- Import paths
- * @param {string} content		- CSS content
- * @returns {string}
+ * @param imports	- Array of import paths
+ * @param content	- CSS content
+ * @returns			- CSS content without imports
  */
-export function removeImportsFromCss(imports, content) {
-	for (let i = 0; i < imports.length; i++) {
-		const importPath = imports[i];
+export function removeImportsFromCss(
+	imports: string[],
+	content: string
+): string {
+	for (const importPath of imports) {
 		const importRegex = new RegExp(
 			`@import\\s+(?:url\\()?['"]?${importPath}['"]?\\)?;`,
 			'g'
@@ -68,12 +72,11 @@ export function removeImportsFromCss(imports, content) {
  * CSS content to the DOM, if the document object
  * is available.
  *
- * @param {string[]} imports	- Import paths
- * @param {string} content		- CSS content
- * @returns {string}
+ * @param imports	- Import paths
+ * @param content	- CSS content
+ * @returns 		- JS module content
  */
-export function buildJsModule(imports = [], content) {
-	// const jsStringImports = _buildImports(imports);
+export function buildJsModule(imports: string[], content: string): string {
 	const jsStringImports = imports
 		.map((importPath, i) => `import import_${i} from '${importPath}';`)
 		.join('\n');
