@@ -4,13 +4,15 @@ import {
 	getImports,
 	removeImportsFromCss,
 	buildJsModule,
-} from './utils.js';
+} from './utils.ts';
+
+import type { BunPlugin } from 'bun';
 
 /**
  * Bun plugin for loading CSS and SCSS files
  * that are being imported in JS source files.
  */
-const cssLoader = () => ({
+const cssLoader = (): BunPlugin => ({
 	name: 'cssLoader',
 	async setup({ onLoad }) {
 		onLoad({ filter: /\.(s)*css$/ }, async (args) => {

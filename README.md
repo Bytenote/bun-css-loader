@@ -1,7 +1,7 @@
-<p align="center">
+<p>
 <h1 align="center">Bun CSS Loader</h1>
 <div align="center">
-<p><i>Bun plugin for loading style files </i></p>
+<p align="center"><i>Bun plugin for loading style files </i></p>
 	
 	bun i bun-css-loader
 </div>
@@ -12,7 +12,7 @@
 This plugin integrates all CSS and SCSS files imported into JS source files directly into the DOM's `<head>` element within `<style>` stags.  
 Additionally, it processes and resolves `@import`statements within the CSS files themselves.
 
-<b>Please note:</b> Only works on non-Windows based operating systems.
+<b>Please note:</b> <i>Only works on non-Windows based operating systems.</i>
 
 # How-To
 
