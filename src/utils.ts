@@ -11,11 +11,9 @@ import { compile } from 'sass';
 export async function loadFile(filePath: string): Promise<string> {
     const fileRef = Bun.file(filePath);
     let cssContent: string = await fileRef.text();
-    let type = fileRef.type;
 
     if (filePath.includes('.scss')) {
         cssContent = compile(fileRef.name ?? '')?.css ?? '';
-        type = 'text/css;charset=utf-8';
     }
 
     return cssContent;

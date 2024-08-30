@@ -5,7 +5,7 @@ import {
     getImports,
     loadFile,
     removeImportsFromCss,
-} from './utils.ts';
+} from './utils.js';
 
 /**
  * Bun plugin for loading CSS and SCSS files that are being imported in JS

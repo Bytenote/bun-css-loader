@@ -1,7 +1,7 @@
 <p>
 <h1 align="center">Bun CSS Loader</h1>
 <div align="center">
-<p align="center"><i>Bun plugin for loading style files </i></p>
+<p align="center"><i>Bun plugin for loading style files</i></p>
 	
 	bun i bun-css-loader
 </div>
