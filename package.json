@@ -28,8 +28,9 @@
     },
     "scripts": {
         "local-release": "changeset version && changeset publish",
-        "prepublishOnly": "npm run ci",
-        "ci": "npm run build && npm run check-format && npm run check-exports",
+        "prepublishOnly": "bun run ci",
+        "add-changeset": "changeset add",
+        "ci": "bun run build && bun run check-format && bun run check-exports",
         "build": "tsc",
         "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
         "check-format": "prettier --check .",
@@ -39,12 +40,13 @@
     "prettier": "@bytenote/prettier-config",
     "dependencies": {
         "lightningcss": "^1.26.0",
-        "sass": "^1.77.6"
+        "sass": "^1.78.0"
     },
     "devDependencies": {
         "@arethetypeswrong/cli": "^0.15.4",
         "@bytenote/prettier-config": "^1.0.4",
-        "@changesets/cli": "^2.27.7",
+        "@changesets/changelog-git": "^0.2.0",
+        "@changesets/cli": "^2.27.8",
         "@types/bun": "^1.1.8",
         "typescript": "^5.5.4"
     }
