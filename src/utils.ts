@@ -79,7 +79,7 @@ export function buildJsModule(imports: string[], content: string): string {
         .map((importPath, i) => `import import_${i} from '${importPath}';`)
         .join('\n');
     const jsStringCssVar = `let css = ${JSON.stringify(content)};`;
-    const jsStringMethod = `function addCssToDom(css) { const head = document.head ?? document.getElementsByTagName('head')[0]; if(head) { head.insertAdjacentHTML('beforeend', \`<style>\${css}</style>\`); } } if(document) { addCssToDom(css); }`;
+    const jsStringMethod = `function injectCss(content) { const head = document.head ?? document.getElementsByTagName('head')[0]; if(head) { head.insertAdjacentHTML('beforeend', \`<style>\${content}</style>\`); } } if(document) { injectCss(css); }`;
     const jsStringExport = '\n\nexport default css';
 
     const jsStringModuleContent =
