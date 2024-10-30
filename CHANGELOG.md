@@ -1,5 +1,11 @@
 # bun-css-loader
 
+## 1.4.0
+
+### Minor Changes
+
+-   f8a4367: Added ability to set a custom ID to the style tag, with a default ID as fallback
+
 ## 1.3.0
 
 ### Minor Changes
