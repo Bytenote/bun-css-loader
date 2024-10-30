@@ -8,19 +8,24 @@ import {
     removeImportsFromCss,
 } from './utils.js';
 
-type CssLoaderOptions = {
+interface CssLoaderOptions {
     postCssPlugins?: AcceptedPlugin[];
-};
+    styleId?: string;
+}
 
 /**
  * Bun plugin for loading CSS and SCSS files that are being imported in JS
  * source files.
  *
  * @param postCssPlugins Optional PostCSS plugins
+ * @param styleId Optional style tag ID
  *
  * @returns Bun plugin
  */
-const cssLoader = ({ postCssPlugins }: CssLoaderOptions = {}): BunPlugin => ({
+const cssLoader = ({
+    postCssPlugins,
+    styleId,
+}: CssLoaderOptions = {}): BunPlugin => ({
     name: 'cssLoader',
     async setup({ onLoad }) {
         onLoad({ filter: /\.(s)*css$/ }, async (args) => {
@@ -50,7 +55,7 @@ const cssLoader = ({ postCssPlugins }: CssLoaderOptions = {}): BunPlugin => ({
                 imports,
                 minifiedCss.toString()
             );
-            const contents = buildJsModule(imports, cleanedCss);
+            const contents = buildJsModule(imports, cleanedCss, styleId);
 
             return {
                 contents,
