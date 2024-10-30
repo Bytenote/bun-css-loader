@@ -9,13 +9,16 @@
 
 # About
 
-This plugin loads the contents of all CSS and SCSS files that are imported in JS files and appends them as `<style>` tags to the DOM's `<head>` element. It processes and resolves `@import` statements within the CSS files themselves.
+This plugin loads the contents of all CSS and SCSS files that are imported in JS files and appends them as `<style>` tags to the DOM's `<head>` element.
+
+The style tag is accessible either via the default ID `css-loader-styles` or via a custom ID you can set with the `styleId` option.
+All `@import` statements inside of the CSS files are processed and resolved.
 
 Now supports PostCSS, adding _TailwindCSS_ support!
 
 # How-To
 
-Basic setup:
+Basic:
 
 ```js
 import cssLoader from 'bun-css-loader';
@@ -29,7 +32,21 @@ await Bun.build({
 });
 ```
 
-TailwindCSS setup:
+Style Tag ID:
+
+```js
+import cssLoader from 'bun-css-loader';
+
+await Bun.build({
+    // ...
+    plugins: [
+        // ...
+        cssLoader({ styleId: 'custom-id' }),
+    ],
+});
+```
+
+TailwindCSS:
 
 ```js
 // autoprefixer & tailwindcss need to be added as (dev) dependencies to your project
@@ -40,6 +57,7 @@ import tailwindcss from 'tailwindcss';
 await Bun.build({
     // ...
     plugins: [
+        // ...
         cssLoader({
             postCssPlugins: [tailwindcss(), autoprefixer()],
         }),

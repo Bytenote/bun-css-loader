@@ -66,20 +66,25 @@ export function removeImportsFromCss(
  * Builds a JS module by creating and combining several JS statements, like
  * imports and exports.
  *
- * Also contains and calls a method that adds the CSS content to the DOM, if the
+ * Contains and calls a method that adds the CSS content to the DOM, if the
  * document object is available.
  *
  * @param imports Import paths
  * @param content CSS content
+ * @param styleId Optional style tag ID
  *
  * @returns JS module content
  */
-export function buildJsModule(imports: string[], content: string): string {
+export function buildJsModule(
+    imports: string[],
+    content: string,
+    styleId: string = 'css-loader-styles'
+): string {
     const jsStringImports = imports
         .map((importPath, i) => `import import_${i} from '${importPath}';`)
         .join('\n');
     const jsStringCssVar = `let css = ${JSON.stringify(content)};`;
-    const jsStringMethod = `function injectCss(content) { const head = document.head ?? document.getElementsByTagName('head')[0]; if(head) { head.insertAdjacentHTML('beforeend', \`<style>\${content}</style>\`); } } if(document) { injectCss(css); }`;
+    const jsStringMethod = `function injectCss(content) { const head = document.head ?? document.getElementsByTagName('head')[0]; if(head) { head.insertAdjacentHTML('beforeend', \`<style id=${styleId}>\${content}</style>\`); } } if(document) { injectCss(css); }`;
     const jsStringExport = '\n\nexport default css';
 
     const jsStringModuleContent =
