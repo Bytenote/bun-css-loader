@@ -1,5 +1,11 @@
 # bun-css-loader
 
+## 1.4.1
+
+### Patch Changes
+
+-   70d2375: Fixed bug that would add multiple style tags to the head
+
 ## 1.4.0
 
 ### Minor Changes

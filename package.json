@@ -1,6 +1,6 @@
 {
     "name": "bun-css-loader",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Bun plugin for loading style files",
     "keywords": [
         "bun",
