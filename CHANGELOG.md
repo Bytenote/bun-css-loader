@@ -1,5 +1,11 @@
 # bun-css-loader
 
+## 1.4.2
+
+### Patch Changes
+
+-   91d231a: CSS content is now correctly added to the style tag
+
 ## 1.4.1
 
 ### Patch Changes
