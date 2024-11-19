@@ -84,7 +84,7 @@ export function buildJsModule(
         .map((importPath, i) => `import import_${i} from '${importPath}';`)
         .join('\n');
     const jsStringCssVar = `let css = ${JSON.stringify(content)};`;
-    const jsStringMethod = `function injectCss(content) { const head = document.head ?? document.getElementsByTagName('head')[0]; if(head) { head.insertAdjacentHTML('beforeend', \`<style id=${styleId}>\${content}</style>\`); } } if(document) { injectCss(css); }`;
+    const jsStringMethod = `function injectCss(content) { const head = document.head ?? document.getElementsByTagName('head')[0]; const styleElem = document.getElementById('${styleId}'); if(head && !styleElem) { head.insertAdjacentHTML('beforeend', \`<style id=${styleId}>\${content}</style>\`); } } if(document) { injectCss(css); }`;
     const jsStringExport = '\n\nexport default css';
 
     const jsStringModuleContent =
